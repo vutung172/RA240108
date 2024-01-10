@@ -37,7 +37,7 @@ public class GamingNet {
                     netService.shutdown(shutdownComputer);
                     break;
                 case 3:
-                    System.out.printf("%4s | %20s | %15s |\n", "Máy", "Giờ mở máy", "Trạng thái");
+                    System.out.printf("%4s | %8s | %20s | %15s |\n","ID","Máy", "Giờ mở máy", "Trạng thái");
                     netService.displayAll(computers);
                     break;
                 case 4:
@@ -66,8 +66,8 @@ public class GamingNet {
                         System.out.println("Nhập vào máy muốn chuyển tới: ");
                         String idNewComputer = sc.next();
                         newComputer = netService.findById(idNewComputer,computers);
-                        if (oldComputer.isStatus()){
-                            System.err.println("Máy" +newComputer.getComputerId()+" hiện đang hoạt động, không thể đổi");
+                        if (newComputer.isStatus()){
+                            System.err.println("Máy " +newComputer.getComputerId()+" hiện đang hoạt động, không thể đổi");
                         } else {
                             break;
                         }

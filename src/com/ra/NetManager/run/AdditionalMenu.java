@@ -23,16 +23,17 @@ public class AdditionalMenu {
                                 additionalService.getPrice());
                     });
             System.out.println((additionalMenuList.size() + 1) + ". Thoát");
-            System.out.print("Mời bạn chọn");
-            String choice = sc.nextLine();
-            addService(choice,addServiceComputer);
+            System.out.print("Mời bạn chọn: ");
+            int selectMenu = Integer.parseInt(sc.nextLine());
+            addService(selectMenu,addServiceComputer);
         } while (!additionalMenuList.isEmpty());
     }
-    public static void addService(String choice,Computer addServiceComputer){
+    public static void addService(int selectMenu,Computer addServiceComputer){
         AdditionalService additionalService = additionalMenuList.stream()
-                .filter(as -> as.getServiceId().equals(choice))
-                .findFirst().orElse(null);
-        if (choice.equalsIgnoreCase(String.valueOf(additionalMenuList.size() + 1))) {
+                                                                    .filter(as -> as.getServiceId().equals(String.valueOf(selectMenu)))
+                                                                    .findFirst()
+                                                                    .orElse(null);
+        if (selectMenu == additionalMenuList.size()+1) {
             GamingNet.menu();
         } else if ((additionalService == null)) {
             System.err.println("Dịch vụ bạn muốn thêm không tồn tại");

@@ -38,7 +38,7 @@ public class NetServiceImpl implements NetService {
         } else if (!shutdownComputer.isStatus()) {
             System.err.println("Máy tính chưa bật");
         } else {
-            System.out.printf("%8s | %15s | %15s |\n","Số máy","Số giờ chơi","Tổng tiền");
+            System.out.printf("%8s | %15s | %15s |\n","Máy","Số giờ chơi","Tổng tiền");
             System.out.printf("%8s | %10.2f giờ | %10.0f VND |\n",
                     shutdownComputer.getComputerId(),
                     totalTimeCount(shutdownComputer.getStartTime(), currentTime()),

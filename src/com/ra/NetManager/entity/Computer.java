@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Computer {
     private String computerId;
+    private String name;
     private List<AdditionalService> additionalServiceList = new ArrayList<>();
     private String startTime;
     private boolean status = false;
@@ -15,7 +16,7 @@ public class Computer {
     public Computer() {
     }
 
-    public Computer(String computerId, String startTime, boolean status) {
+    public Computer(String computerId, String name, String startTime, boolean status) {
         setStatus(status);
         setComputerId(computerId);
         setStartTime(startTime);
@@ -28,6 +29,14 @@ public class Computer {
 
     public void setComputerId(String computerId) {
         this.computerId = computerId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getStartTime() {
@@ -59,13 +68,13 @@ public class Computer {
         this.status = status;
     }
     public void display(){
-        System.out.printf("%4s | %20s | %15s |\n",getComputerId(),getStartTime(),isStatus()?"Đang sử dụng":"Đã tắt");
+        System.out.printf("%4s |%8s | %20s | %15s |\n",getComputerId(),getName(),getStartTime(),isStatus()?"Đang sử dụng":"Đã tắt");
     }
     public void setStandBy(){
         setStatus(false);
         setStartTime(null);
         setAdditionalServiceList(new ArrayList<>());
-        System.out.println("Đã tắt máy");
+        System.out.println("Đã tắt máy "+getComputerId());
     }
 
 
