@@ -28,23 +28,33 @@ public class GamingNet {
                     System.out.println("Nhập vào ID máy muốn bât:");
                     String idStart = sc.nextLine();
                     Computer startUpComputer = netService.findById(idStart,computers);
-                    netService.startUp(startUpComputer);
+                    if (startUpComputer == null){
+                        System.err.println("Máy tính có id là "+idStart+" không tồn tại");
+                    } else {
+                        netService.startUp(startUpComputer);
+                    }
                     break;
                 case 2:
                     System.out.println("Nhập vào ID máy muốn tính tiền:");
                     String idEnd = sc.nextLine();
                     Computer shutdownComputer = netService.findById(idEnd,computers);
-                    netService.shutdown(shutdownComputer);
+                    if (shutdownComputer == null){
+                        System.err.println("Máy tính có id là "+idEnd+" không tồn tại");
+                    } else {
+                        netService.shutdown(shutdownComputer);
+                    }
                     break;
                 case 3:
-                    System.out.printf("%4s | %8s | %20s | %15s |\n","ID","Máy", "Giờ mở máy", "Trạng thái");
+                    System.out.printf("%4s | %8s | %20s | %15s | %-10s\n","ID","Tên Máy","Giờ mở máy", "Trạng thái","Dịch vụ");
                     netService.displayAll(computers);
                     break;
                 case 4:
                     System.out.println("Nhập máy muốn thêm dịch vụ: ");
                     String idComputerAddService = sc.nextLine();
                     Computer addServiceComputer = netService.findById(idComputerAddService,computers);
-                    if (!addServiceComputer.isStatus()){
+                    if (addServiceComputer == null){
+                        System.err.println("Máy tính có id là"+idComputerAddService+" không tồn tại");
+                    } else if (!addServiceComputer.isStatus()){
                         System.err.println("Máy "+addServiceComputer.getComputerId()+" hiện đang tắt, không thể thêm dịch vụ");
                     } else {
                         netService.addService(addServiceComputer);
@@ -56,7 +66,9 @@ public class GamingNet {
                         System.out.println("Nhập vào máy muốn chuyển: ");
                         String idOldComputer = sc.nextLine();
                         oldComputer = netService.findById(idOldComputer,computers);
-                        if (!oldComputer.isStatus()){
+                        if (oldComputer == null){
+                            System.err.println("Máy tính có id là "+idOldComputer+" không tồn tại");
+                        } else if (!oldComputer.isStatus()){
                             System.err.println("Máy "+oldComputer.getComputerId()+" đang tắt, không thể chuyển.");
                         } else {
                             break;
@@ -64,9 +76,11 @@ public class GamingNet {
                     } while (true);
                     do {
                         System.out.println("Nhập vào máy muốn chuyển tới: ");
-                        String idNewComputer = sc.next();
+                        String idNewComputer = sc.nextLine();
                         newComputer = netService.findById(idNewComputer,computers);
-                        if (newComputer.isStatus()){
+                        if (newComputer == null){
+                            System.err.println("Máy tính có id là "+idNewComputer+" không tồn tại");
+                        } else if (newComputer.isStatus()){
                             System.err.println("Máy " +newComputer.getComputerId()+" hiện đang hoạt động, không thể đổi");
                         } else {
                             break;

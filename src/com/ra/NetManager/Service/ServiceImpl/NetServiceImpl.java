@@ -85,11 +85,12 @@ public class NetServiceImpl implements NetService {
     public void changeComputer(Computer oldComputer, Computer newComputer) {
         //Transfer  data of oldComputer to newComputer
         newComputer.setStatus(true);
-        newComputer.setStartTime(newComputer.getStartTime());
+        newComputer.setStartTime(oldComputer.getStartTime());
         newComputer.setAdditionalServiceList(oldComputer.getAdditionalServiceList());
 
         //Set oldComputer to off;
         oldComputer.setStandBy();
+        System.out.println("Đã chuyển từ "+oldComputer.getName()+" sang "+newComputer.getName()+" thành công");
     }
 
     @Override

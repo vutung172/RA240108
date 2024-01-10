@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Computer {
     private String computerId;
@@ -20,7 +22,7 @@ public class Computer {
         setStatus(status);
         setComputerId(computerId);
         setStartTime(startTime);
-
+        setName(name);
     }
 
     public String getComputerId() {
@@ -68,13 +70,35 @@ public class Computer {
         this.status = status;
     }
     public void display(){
-        System.out.printf("%4s |%8s | %20s | %15s |\n",getComputerId(),getName(),getStartTime(),isStatus()?"Đang sử dụng":"Đã tắt");
+        if (additionalServiceList.isEmpty()){
+            System.out.printf("%4s | %8s | %20s | %15s | %s\n",
+                    getComputerId(),
+                    getName(),
+                    getStartTime(),
+                    isStatus()?"Đang sử dụng":"Đã tắt",
+                    "Chưa có dịch vụ phát sinh"
+            );
+        } else {
+            Map<String,Long> additionalServices = additionalServiceList.stream()
+                    .collect(Collectors
+                            .groupingBy(AdditionalService::getServiceName,Collectors.counting())
+                    );
+            System.out.printf("%4s | %8s | %20s | %15s |",
+                    getComputerId(),
+                    getName(),
+                    getStartTime(),
+                    isStatus()?"Đang sử dụng":"Đã tắt"
+            );
+            additionalServices.keySet()
+                    .forEach(serviceName -> System.out.printf(" [%s : %s] |",serviceName,additionalServices.get(serviceName)));
+            System.out.print("\n");
+        }
     }
     public void setStandBy(){
         setStatus(false);
         setStartTime(null);
         setAdditionalServiceList(new ArrayList<>());
-        System.out.println("Đã tắt máy "+getComputerId());
+        System.out.println("Đã tắt "+getName());
     }
 
 
