@@ -4,61 +4,57 @@ import com.ra.NetManager.Service.DateTimeFormat;
 import com.ra.NetManager.Service.NetService;
 import com.ra.NetManager.entity.AdditionalService;
 import com.ra.NetManager.entity.Computer;
+import com.ra.NetManager.run.AdditionalMenu;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
-public class NetServiceImpl implements NetService{
+public class NetServiceImpl implements NetService {
     private final String DATE_FORMAT = "dd/MM/yyyy, HH:mm:ss";
     private final double pricePerHour = 15000;
+
     @Override
-    public void startUp(String id,List<Computer> computers) {
-        Computer foundComputer = computers.stream()
-                .filter(c -> c.getComputerId().equals(id))
-                .findFirst()
-                .orElse(null);
-        if(foundComputer == null){
+    public void startUp(Computer startUpComputer) {
+        if (startUpComputer == null) {
             System.err.println("Máy tính không tồn tại");
-        } else if (foundComputer.isStatus()){
+        } else if (startUpComputer.isStatus()) {
             System.err.println("Máy tính đang được sử dụng");
         } else {
-            foundComputer.setStatus(true);
-            foundComputer.setStartTime(currentTime());
+            startUpComputer.setStatus(true);
+            startUpComputer.setStartTime(currentTime());
             System.out.println("Đã mở máy");
         }
     }
 
     @Override
-    public void Shutdown(String id,List<Computer> computers) {
-        Computer foundComputer = computers.stream()
-                .filter(c -> c.getComputerId().equals(id))
-                .findFirst().orElse(null);
-        if(foundComputer == null){
+    public void shutdown(Computer shutdownComputer) {
+        if (shutdownComputer == null) {
             System.err.println("Máy tính không tồn tại");
-        } else if (!foundComputer.isStatus()){
+        } else if (!shutdownComputer.isStatus()) {
             System.err.println("Máy tính chưa bật");
         } else {
             System.out.printf("Giá tiền: %s USD\n",
-                    payBill(foundComputer.getStartTime(), currentTime()));
+                    payBill(shutdownComputer.getStartTime(), currentTime()));
             System.out.println("Đã tắt máy");
-            foundComputer = new Computer();
-            foundComputer.setStatus(false);
+            shutdownComputer.setStandBy();
         }
     }
 
     @Override
     public float payBill(String start, String end) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
-        LocalDateTime startTime = LocalDateTime.parse(start,dateTimeFormatter);
-        LocalDateTime endTime = LocalDateTime.parse(end,dateTimeFormatter);
-        long hours = Duration.between(endTime,startTime).toHours();
-        if (hours <= 1){
-            return (float) (1*pricePerHour);
+        LocalDateTime startTime = LocalDateTime.parse(start, dateTimeFormatter);
+        LocalDateTime endTime = LocalDateTime.parse(end, dateTimeFormatter);
+        long hours = Duration.between(endTime, startTime).toHours();
+        if (hours <= 1) {
+            return (float) (1 * pricePerHour);
         } else {
-            return (float) (hours*pricePerHour);
+            return (float) (hours * pricePerHour);
         }
     }
 
@@ -68,12 +64,23 @@ public class NetServiceImpl implements NetService{
     }
 
     @Override
-    public void addService(String id, AdditionalService service) {
-
+    public void addService(Computer addServiceComputer) {
+        if (addServiceComputer == null) {
+            System.err.println("Máy không tồn tại");
+        } else {
+            AdditionalMenu.menu(addServiceComputer);
+        }
     }
 
     @Override
-    public void changeComputer(String idOldComputer, String idNewComputer) {
+    public void changeComputer(Computer oldComputer, Computer newComputer) {
+        //Transfer  data of oldComputer to newComputer
+        newComputer.setStatus(true);
+        newComputer.setStartTime(newComputer.getStartTime());
+        newComputer.setAdditionalServiceList(oldComputer.getAdditionalServiceList());
+
+        //Set oldComputer to off;
+        oldComputer.setStandBy();
     }
 
     @Override
@@ -83,4 +90,11 @@ public class NetServiceImpl implements NetService{
         return localDateTime.format(dateTimeFormatter);
     }
 
+    @Override
+    public Computer findById(String id, List<Computer> computers) {
+        return computers.stream()
+                .filter(c -> c.getComputerId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
 }

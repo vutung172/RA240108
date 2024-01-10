@@ -14,6 +14,7 @@ public class Main {
         AdditionalMenu.additionalMenuList.add(new AdditionalService("2","Sting",1200));
         AdditionalMenu.additionalMenuList.add(new AdditionalService("3","Mì trứng",20000));
         AdditionalMenu.additionalMenuList.add(new AdditionalService("4","Xôi",10000));
+        AdditionalMenu.additionalMenuList.add(new AdditionalService("5","Cháo",17000));
         GamingNet.menu();
     }
 }

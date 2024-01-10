@@ -2,14 +2,15 @@ package com.ra.NetManager.entity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Computer {
     private String computerId;
-    private List<AdditionalService> additionalServiceList;
+    private List<AdditionalService> additionalServiceList = new ArrayList<>();
     private String startTime;
-    private boolean status;
+    private boolean status = false;
 
     public Computer() {
     }
@@ -58,7 +59,13 @@ public class Computer {
         this.status = status;
     }
     public void display(){
-        System.out.printf("%4s | %20s | %15s |\n",getComputerId(),getStartTime(),isStatus()?"Đang sử dụng":"Chưa bật");
+        System.out.printf("%4s | %20s | %15s |\n",getComputerId(),getStartTime(),isStatus()?"Đang sử dụng":"Đã tắt");
+    }
+    public void setStandBy(){
+        setStatus(false);
+        setStartTime(null);
+        setAdditionalServiceList(new ArrayList<>());
+        System.out.println("Máy tính đã tắt");
     }
 
 
