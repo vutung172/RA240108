@@ -1,12 +1,7 @@
 package com.ra.NetManager.Service;
 
-import com.ra.NetManager.entity.AdditionalService;
 import com.ra.NetManager.entity.Computer;
-
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
-import java.util.function.Predicate;
 
 public interface NetService {
     String currentTime();

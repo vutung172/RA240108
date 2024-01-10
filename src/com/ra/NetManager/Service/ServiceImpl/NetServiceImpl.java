@@ -1,18 +1,13 @@
 package com.ra.NetManager.Service.ServiceImpl;
 
-import com.ra.NetManager.Service.DateTimeFormat;
 import com.ra.NetManager.Service.NetService;
-import com.ra.NetManager.entity.AdditionalService;
 import com.ra.NetManager.entity.Computer;
 import com.ra.NetManager.run.AdditionalMenu;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class NetServiceImpl implements NetService {
     private final String DATE_FORMAT = "dd/MM/yyyy, HH:mm:ss";

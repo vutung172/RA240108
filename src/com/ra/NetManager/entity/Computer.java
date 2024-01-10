@@ -1,14 +1,12 @@
 package com.ra.NetManager.entity;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Computer {
+public class Computer implements Serializable {
     private String computerId;
     private String name;
     private List<AdditionalService> additionalServiceList = new ArrayList<>();

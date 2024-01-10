@@ -1,5 +1,6 @@
 package com.ra.NetManager.run;
 
+import com.ra.NetManager.Service.ServiceImpl.FileServiceImpl;
 import com.ra.NetManager.entity.AdditionalService;
 import com.ra.NetManager.entity.Computer;
 
@@ -15,6 +16,12 @@ public class Main {
         AdditionalMenu.addServiceToMenu(new AdditionalService("3","Mì trứng",20000));
         /*AdditionalMenu.addServiceToMenu(new AdditionalService("4","Xôi",10000));
         AdditionalMenu.addServiceToMenu(new AdditionalService("5","Cháo",17000));*/
+        FileServiceImpl<Computer> fileServiceComputer = new FileServiceImpl<>();
+        FileServiceImpl<AdditionalService> fileServiceAdditionalService = new FileServiceImpl<>();
+
         GamingNet.menu();
+        fileServiceComputer.writeToFile(GamingNet.computers);
+        fileServiceAdditionalService.writeToFile(AdditionalMenu.additionalMenuList);
+
     }
 }

@@ -1,5 +1,6 @@
 package com.ra.NetManager.run;
 
+import com.ra.NetManager.Service.ServiceImpl.FileServiceImpl;
 import com.ra.NetManager.Service.ServiceImpl.NetServiceImpl;
 import com.ra.NetManager.entity.Computer;
 
@@ -33,6 +34,7 @@ public class GamingNet {
                     } else {
                         netService.startUp(startUpComputer);
                     }
+                    /*fileServiceComputer.writeToFile(computers);*/
                     break;
                 case 2:
                     System.out.println("Nhập vào ID máy muốn tính tiền:");
@@ -43,9 +45,10 @@ public class GamingNet {
                     } else {
                         netService.shutdown(shutdownComputer);
                     }
+                    /*fileServiceComputer.writeToFile(computers);*/
                     break;
                 case 3:
-                    System.out.printf("%4s | %8s | %20s | %15s | %-10s\n","ID","Tên Máy","Giờ mở máy", "Trạng thái","Dịch vụ");
+                    System.out.printf("%4s | %8s | %20s | %15s | %-10s\n","ID","Tên Máy","Giờ mở máy", "Trạng thái","Dịch vụ phát sinh");
                     netService.displayAll(computers);
                     break;
                 case 4:
@@ -59,6 +62,7 @@ public class GamingNet {
                     } else {
                         netService.addService(addServiceComputer);
                     }
+                    /*fileServiceComputer.writeToFile(computers);*/
                     break;
                 case 5:
                     Computer oldComputer,newComputer;
@@ -87,8 +91,10 @@ public class GamingNet {
                         }
                     }while (true);
                     netService.changeComputer(oldComputer,newComputer);
+                    /*fileServiceComputer.writeToFile(computers);*/
                     break;
                 case 6:
+                    /*fileServiceComputer.writeToFile(computers);*/
                     System.exit(0);
                 default:
                     System.err.println("Lựa chọn không phù hợp");

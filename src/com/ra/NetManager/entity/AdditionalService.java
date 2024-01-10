@@ -1,6 +1,8 @@
 package com.ra.NetManager.entity;
 
-public class AdditionalService {
+import java.io.Serializable;
+
+public class AdditionalService implements Serializable {
     private String serviceId;
     private String serviceName;
     private double price;

@@ -1,16 +1,15 @@
 package com.ra.NetManager.run;
 
-import com.ra.NetManager.Service.NetService;
+import com.ra.NetManager.Service.ServiceImpl.FileServiceImpl;
 import com.ra.NetManager.entity.AdditionalService;
 import com.ra.NetManager.entity.Computer;
 
-import java.security.Provider;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class AdditionalMenu {
-    public static List<AdditionalService> additionalMenuList = new ArrayList<>();
+    public static List<AdditionalService> additionalMenuList =new ArrayList<>();
     public static void menu(Computer addServiceComputer) {
         Scanner sc = new Scanner(System.in);
         do {
@@ -44,5 +43,6 @@ public class AdditionalMenu {
     }
     public static void addServiceToMenu(AdditionalService additionalService){
         additionalMenuList.add(additionalService);
+        /*fileServiceAdditionalService.writeToFile(additionalMenuList);*/
     }
 }
