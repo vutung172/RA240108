@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class GamingNet {
+    static FileServiceImpl<Computer> fileServiceComputer = new FileServiceImpl<>();
     public static List<Computer> computers = new ArrayList<>();
 
     public static void menu() {
@@ -34,7 +35,7 @@ public class GamingNet {
                     } else {
                         netService.startUp(startUpComputer);
                     }
-                    /*fileServiceComputer.writeToFile(computers);*/
+                    fileServiceComputer.writeToFile(computers);
                     break;
                 case 2:
                     System.out.println("Nhập vào ID máy muốn tính tiền:");
@@ -45,7 +46,7 @@ public class GamingNet {
                     } else {
                         netService.shutdown(shutdownComputer);
                     }
-                    /*fileServiceComputer.writeToFile(computers);*/
+                    fileServiceComputer.writeToFile(computers);
                     break;
                 case 3:
                     System.out.printf("%4s | %8s | %20s | %15s | %-10s\n","ID","Tên Máy","Giờ mở máy", "Trạng thái","Dịch vụ phát sinh");
@@ -62,7 +63,7 @@ public class GamingNet {
                     } else {
                         netService.addService(addServiceComputer);
                     }
-                    /*fileServiceComputer.writeToFile(computers);*/
+                    fileServiceComputer.writeToFile(computers);
                     break;
                 case 5:
                     Computer oldComputer,newComputer;
@@ -91,10 +92,10 @@ public class GamingNet {
                         }
                     }while (true);
                     netService.changeComputer(oldComputer,newComputer);
-                    /*fileServiceComputer.writeToFile(computers);*/
+                    fileServiceComputer.writeToFile(computers);
                     break;
                 case 6:
-                    /*fileServiceComputer.writeToFile(computers);*/
+                    fileServiceComputer.writeToFile(computers);
                     System.exit(0);
                 default:
                     System.err.println("Lựa chọn không phù hợp");

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AdditionalMenu {
+    static FileServiceImpl<AdditionalService> fileServiceAdditionalService = new FileServiceImpl<>();
     public static List<AdditionalService> additionalMenuList =new ArrayList<>();
     public static void menu(Computer addServiceComputer) {
         Scanner sc = new Scanner(System.in);
@@ -43,6 +44,6 @@ public class AdditionalMenu {
     }
     public static void addServiceToMenu(AdditionalService additionalService){
         additionalMenuList.add(additionalService);
-        /*fileServiceAdditionalService.writeToFile(additionalMenuList);*/
+        fileServiceAdditionalService.writeToFile(additionalMenuList);
     }
 }
