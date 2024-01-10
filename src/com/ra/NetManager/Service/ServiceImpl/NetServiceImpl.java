@@ -38,23 +38,32 @@ public class NetServiceImpl implements NetService {
         } else if (!shutdownComputer.isStatus()) {
             System.err.println("Máy tính chưa bật");
         } else {
-            System.out.printf("Giá tiền: %s USD\n",
-                    payBill(shutdownComputer.getStartTime(), currentTime()));
-            System.out.println("Đã tắt máy");
+            System.out.printf("%8s | %15s | %15s |\n","Số máy","Số giờ chơi","Tổng tiền");
+            System.out.printf("%8s | %10.2f giờ | %10.0f VND |\n",
+                    shutdownComputer.getComputerId(),
+                    totalTimeCount(shutdownComputer.getStartTime(), currentTime()),
+                    payBill(shutdownComputer.getStartTime(),currentTime())
+            );
             shutdownComputer.setStandBy();
         }
     }
 
     @Override
-    public float payBill(String start, String end) {
+    public double totalTimeCount(String start, String end) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         LocalDateTime startTime = LocalDateTime.parse(start, dateTimeFormatter);
         LocalDateTime endTime = LocalDateTime.parse(end, dateTimeFormatter);
-        long hours = Duration.between(endTime, startTime).toHours();
-        if (hours <= 1) {
-            return (float) (1 * pricePerHour);
+        long minutes = Duration.between(startTime,endTime).toMinutes();
+        return (double) minutes /60;
+    }
+
+    @Override
+    public double payBill(String start,String end) {
+        double totalTime = totalTimeCount(start,end);
+        if (totalTime <= 1) {
+            return (1 * pricePerHour);
         } else {
-            return (float) (hours * pricePerHour);
+            return (totalTime * pricePerHour);
         }
     }
 

@@ -65,7 +65,7 @@ public class Computer {
         setStatus(false);
         setStartTime(null);
         setAdditionalServiceList(new ArrayList<>());
-        System.out.println("Máy tính đã tắt");
+        System.out.println("Đã tắt máy");
     }
 
 
